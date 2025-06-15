@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Luyện Tập Chép Chính Tả Tiếng Anh</title>
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: #f0f4ff;
+            color: #1e293b;
+            max-width: 700px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 24px;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        .word-container {
+            background: #ffffffcc;
+            padding: 24px;
+            border-radius: 16px;
+            box-shadow: 0 6px 12px rgb(99 102 241 / 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        button {
+            background: #6366f1;
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover,
+        button:focus {
+            background: #4f46e5;
+            outline: none;
+        }
+
+        input[type="text"] {
+            padding: 12px 16px;
+            font-size: 1rem;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            transition: border-color 0.2s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #6366f1;
+            outline: none;
+            box-shadow: 0 0 8px #a5b4fc;
+        }
+
+        .result {
+            font-weight: 700;
+            min-height: 24px;
+        }
+
+        .correct {
+            color: #22c55e;
+        }
+
+        .incorrect {
+            color: #ef4444;
+        }
+
+        .footer {
+            margin-top: 32px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                margin: 15px;
+                padding: 15px;
+            }
+
+            button,
+            input[type="text"] {
+                font-size: 1rem;
+                padding: 12px 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Luyện Tập Chép Chính Tả Tiếng Anh</h1>
+    <div class="word-container" aria-live="polite" aria-atomic="true">
+        <button id="play-button" aria-label="Nghe từ">Nghe từ</button>
+        <input type="text" id="user-input" placeholder="Gõ lại từ bạn nghe thấy…" aria-describedby="word-instruction"
+            aria-required="true" autocomplete="off" />
+        <button id="check-button" aria-label="Kiểm tra chính tả">Kiểm tra</button>
+        <div id="result" class="result" role="alert" aria-live="assertive"></div>
+        <button id="next-button" aria-label="Từ tiếp theo">Từ tiếp theo</button>
+    </div>
+    <div class="footer">
+        <p>Số từ sai: <span id="incorrect-count">0</span> / <span id="total-count">0</span></p>
+    </div>
+
+    <script>
+        // Danh sách từ luyện tập
+        const words = [
+            "a", "abandon", "ability", "able", "about", "above", "abroad", "absolute", "absolutely", "academic", "accept", "acceptable", "access", "accident", "accommodation", "accompany", "according to", "account", "accurate", "accuse", "achieve", "achievement", "acknowledge", "acquire", "across", "act", "action", "active", "activity", "actor", "actress", "actual", "actually", "ad", "adapt", "add", "addition", "additional", "address", "administration", "admire", "admit", "adopt", "adult", "advance", "advanced", "advantage", "adventure", "advertise", "advertisement", "advertising", "advice", "advise", "affair", "affect", "afford", "afraid", "after", "afternoon", "afterwards", "again", "against", "age", "aged", "agency", "agenda", "agent", "aggressive", "ago", "agree", "agreement", "ah", "ahead", "aid", "aim", "air", "aircraft", "airline", "airport", "alarm", "album", "alcohol", "alcoholic", "alive", "all", "all right", "allow", "almost", "alone", "along", "already", "also", "alter", "alternative", "although", "always", "amazed", "amazing", "ambition", "ambitious", "among", "amount", "analyze", "analysis", "ancient", "and", "anger", "angle", "angry", "animal", "ankle", "anniversary", "announce", "announcement", "annoy", "annoying", "annual", "another", "answer", "anxious", "any", "anymore", "anybody", "anyone", "anything", "anyway", "anywhere", "apart", "apartment", "apologize", "app", "apparent", "apparently", "appeal", "appear", "appearance", "apple", "application", "apply", "appointment", "appreciate", "approach", "appropriate", "approval", "approve", "approximately", "april", "architect", "architecture", "area", "argue", "argument", "arise", "arm", "armed", "arms", "army", "around", "arrange", "arrangement", "arrest", "arrival", "arrive", "art", "article", "artificial", "artist", "artistic", "as", "ashamed", "ask", "asleep", "aspect", "assess", "assessment", "assignment", "assist", "assistant", "associate", "associated", "association", "assume", "at", "athlete", "atmosphere", "attach", "attack", "attempt", "attend", "attention", "attitude", "attract", "atraction", "attractive", "audience", "august", "aunt", "author", "authority", "autumn", "available", "average", "avoid", "award", "aware", "away", "awful", "baby", "back", "background", "backwards", "bacteria", "bad", "badly", "bag", "bake", "balance", "ball", "ban", "banana", "band", "bank", "bar", "barrier", "base", "baseball", "based", "basic", "basically", "basis", "basketball", "bath", "bathroom", "battery", "battle", "be", "beach", "bean", "bear", "beat", "beautiful", "beauty", "because", "become", "bed", "bedroom", "bee", "beef", "beer", "before", "beg", "begin", "beginning", "behave", "behaviour", "behind", "being", "belif", "believe", "bell", "belong", "below", "belt", "bend", "benefit", "bent", "best", "bet", "better", "between", "beyond", "bicycle", "big", "bike", "bill", "billion", "bin", "biology", "bird", "birth", "birthday", "biscuit", "bit", "bite", "bitter", "black", "blame", "blank", "blind", "block", "blog", "blonde", "blood", "blow", "blue", "board", "boat", "body", "boil", "bomb", "bond", "bone", "book", "boot", "border", "bored", "boring", "born", "borrow", "boss", "both", "bother", "bottle", "bottom", "bowl", "box", "boy", "boyfriend", "brain", "branch", "brand", "brave", "bread", "break", "breakfast", "breast", "breath", "breathe", "breathing", "bride", "bridge", "brief", "bright", "brilliant", "bring", "broad", "broadcast", "broken", "brother", "brown", "brush", "bubble", "budget", "build", "building", "bullet", "bunch", "burn", "bury", "bus", "bush", "business", "businessman", "busy", "but", "butter", "button", "buy", "by", "bye", "cable", "cafe", "cake", "calculate", "call", "calm", "camera", "camp", "campaign", "camping", "campus", "cancel", "cancer", "candidate", "cannot", "cap", "capable", "capacity", "capital", "captain", "capture", "car", "card", "care", "career", "careful", "carefully", "careless", "carpet", "carrot", "carry", "cartoon", "case", "cash", "cast", "castle", "cat", "catch", "category", "cause", "cd", "ceiling", "celebrate", "celebration", "celebrity", "cell", "cent", "central", "centre", "century", "ceremony", "certain", "certainly", "chain", "chair", "chairman", "challenge", "champion", "chance", "change", "channel", "chapter", "character", "characteristic", "charge", "charity", "chart", "chat", "cheap", "cheat", "check", "cheerful", "cheese", "chef", "chemical", "chemistry", "chest", "chicken", "chief", "child", "childhood", "chip", "chocolate", "choice", "choose", "church", "cigarette", "cinema", "circle", "circumstance", "cite", "citizen", "city", "civil", "claim", "class", "classic", "classical", "classroom", "clause", "clean", "clear", "clearly", "clever", "click", "client", "climate", "climb", "clock", "closed", "closely", "cloth", "clothes", "clothing", "cloud", "club", "clue", "coach", "coal", "coast", "coat", "code", "coffee", "coin", "cold", "collapse", "colleague", "collect", "collection", "college", "color", "colored", "column", "combination", "combine", "come", "comedy", "comfort", "comfortable", "command", "comment", "commercial", "commission", "commit", "commitment", "committee", "common", "commonly", "communicate", "communication", "community", "company", "compare", "comparison", "compete", "competition", "competitive", "competitor", "complain", "complaint", "complete", "completely", "complex", "complicated", "component", "computer", "concentrate", "concentration", "concept", "concern", "concerned", "concert", "conclude", "conclusion", "condition", "conduct", "conference", "confidence", "confident", "confirm", "conflict", "confuse", "confused", "confusing", "connect", "connected", "connection", "conscious", "consequence", "conservative", "consider", "consideration", "consist", "consistent", "constant", "constantly", "construct", "construction", "consume", "consumer", "contact", "contain", "container", "contemporary", "contest", "context", "continent", "continue", "continuous", "contract", "contrast", "contribute", "contribution", "control", "convenient", "conversation", "convert", "convince", "convinced", "cook", "cooker", "cooking", "cool", "copy", "core", "corner", "corporate", "correct", "correctly", "cost", "costume", "cottage", "cotton", "could", "council", "count"
+        ];
+
+        let currentWordIndex = 0;
+        let incorrectCount = 0;
+
+        const playButton = document.getElementById('play-button');
+        const checkButton = document.getElementById('check-button');
+        const nextButton = document.getElementById('next-button');
+        const userInput = document.getElementById('user-input');
+        const resultDiv = document.getElementById('result');
+        const incorrectCountSpan = document.getElementById('incorrect-count');
+        const totalCountSpan = document.getElementById('total-count');
+
+        totalCountSpan.textContent = words.length;
+
+        // Hàm phát âm từ bằng Web Speech API với giọng anh Mỹ
+        function playAudio() {
+            const word = words[currentWordIndex];
+            if (!('speechSynthesis' in window)) {
+                alert('Trình duyệt của bạn không hỗ trợ chức năng nói tự động.');
+                return;
+            }
+            window.speechSynthesis.cancel(); // Hủy phát trước nếu đang phát
+            const utter = new SpeechSynthesisUtterance(word);
+            // Chọn giọng tiếng Anh Mỹ (ưu tiên)
+            const voices = window.speechSynthesis.getVoices();
+            const usVoice = voices.find(v => (v.lang === 'en-US' || v.lang.startsWith('en-US')) && v.localService)
+                || voices.find(v => v.lang === 'en-US')
+                || voices[0];
+            if (usVoice) {
+                utter.voice = usVoice;
+            }
+            utter.rate = 0.9; // tốc độ nói vừa phải
+            window.speechSynthesis.speak(utter);
+        }
+
+        function checkSpelling() {
+            const input = userInput.value.trim().toLowerCase();
+            const correctWord = words[currentWordIndex].toLowerCase();
+
+            if (input === "") {
+                resultDiv.textContent = "Vui lòng nhập từ.";
+                resultDiv.className = "result incorrect";
+                return;
+            }
+            if (input === correctWord) {
+                resultDiv.textContent = "Chính xác! Bạn có thể sang từ tiếp theo.";
+                resultDiv.className = "result correct";
+                nextButton.focus();
+            } else {
+                resultDiv.textContent = `Sai! Từ đúng là: "${words[currentWordIndex]}"`;
+                resultDiv.className = "result incorrect";
+                incorrectCount++;
+                incorrectCountSpan.textContent = incorrectCount;
+            }
+        }
+
+        function nextWord() {
+            currentWordIndex++;
+            if (currentWordIndex >= words.length) {
+                alert(`Hoàn thành bài tập! Số từ sai: ${incorrectCount} trên tổng số ${words.length}`);
+                currentWordIndex = 0;
+                incorrectCount = 0;
+                incorrectCountSpan.textContent = incorrectCount;
+            }
+            userInput.value = "";
+            resultDiv.textContent = "";
+            userInput.focus();
+        }
+
+        playButton.addEventListener("click", () => {
+            playAudio();
+        });
+
+        checkButton.addEventListener("click", () => {
+            checkSpelling();
+        });
+
+        nextButton.addEventListener("click", () => {
+            nextWord();
+        });
+
+        // Enter thao tác kiểm tra khi nhấn enter ở ô input
+        userInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+                e.preventDefault();
+                checkSpelling();
+            }
+        });
+
+        // Tự động load giọng cho Web Speech API (để lấy voices)
+        window.speechSynthesis.onvoiceschanged = () => { };
+
+        // Tự động focus ô nhập khi load trang
+        window.addEventListener("load", () => {
+            userInput.focus();
+        });
+    </script>
+</body>
+
+</html>
