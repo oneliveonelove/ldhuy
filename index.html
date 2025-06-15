@@ -2,216 +2,538 @@
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Luyện Tập Chép Chính Tả Tiếng Anh</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luyện Tập Chép Chính Tả Tiếng Anh với Giọng Oxford</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
         body {
-            font-family: 'Inter', Arial, sans-serif;
-            background: #f0f4ff;
-            color: #1e293b;
-            max-width: 700px;
-            margin: 30px auto;
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            color: #333;
+            min-height: 100vh;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.93);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(90deg, #4b6cb7, #182848);
+            border-radius: 15px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
         }
 
         h1 {
-            text-align: center;
-            margin-bottom: 24px;
-            font-weight: 700;
-            color: #334155;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
         }
 
-        .word-container {
-            background: #ffffffcc;
-            padding: 24px;
-            border-radius: 16px;
-            box-shadow: 0 6px 12px rgb(99 102 241 / 0.15);
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .university-badges {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 20px 0;
+        }
+
+        .badge {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            align-items: center;
+            text-align: center;
+            width: 140px;
+        }
+
+        .badge-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .oxford {
+            background: linear-gradient(135deg, #002147, #1a3a6d);
+            color: #fff;
+        }
+
+        .badge-label {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         button {
-            background: #6366f1;
+            background: #4b6cb7;
             border: none;
             color: white;
             font-weight: 600;
-            padding: 12px 20px;
+            padding: 14px 24px;
             border-radius: 12px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1rem;
+            min-width: 180px;
+            box-shadow: 0 4px 8px rgba(75, 108, 183, 0.3);
         }
 
-        button:hover,
-        button:focus {
-            background: #4f46e5;
-            outline: none;
+        button:hover {
+            background: #3a5ca5;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(75, 108, 183, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #play-button {
+            background: linear-gradient(135deg, #4b6cb7, #3a5ca5);
+            min-width: 250px;
+        }
+
+        #check-button {
+            background: linear-gradient(135deg, #28a745, #218838);
+        }
+
+        #next-button {
+            background: linear-gradient(135deg, #ffc107, #e0a800);
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #2c3e50;
         }
 
         input[type="text"] {
-            padding: 12px 16px;
-            font-size: 1rem;
-            border: 2px solid #cbd5e1;
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 1.2rem;
+            border: 2px solid #ddd;
             border-radius: 12px;
-            transition: border-color 0.2s ease;
+            transition: all 0.3s ease;
         }
 
         input[type="text"]:focus {
-            border-color: #6366f1;
+            border-color: #4b6cb7;
             outline: none;
-            box-shadow: 0 0 8px #a5b4fc;
+            box-shadow: 0 0 0 4px rgba(75, 108, 183, 0.2);
         }
 
         .result {
-            font-weight: 700;
-            min-height: 24px;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .empty {
+            background: #f8f9fa;
+            color: #6c757d;
         }
 
         .correct {
-            color: #22c55e;
+            background: rgba(40, 167, 69, 0.15);
+            color: #28a745;
+            border: 2px solid #28a745;
         }
 
         .incorrect {
-            color: #ef4444;
+            background: rgba(220, 53, 69, 0.15);
+            color: #dc3545;
+            border: 2px solid #dc3545;
         }
 
-        .footer {
-            margin-top: 32px;
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 25px 0;
+            font-weight: 500;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-item {
             text-align: center;
-            font-size: 0.9rem;
-            color: #64748b;
         }
 
-        @media (max-width: 480px) {
-            body {
-                margin: 15px;
-                padding: 15px;
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .progress-container {
+            width: 100%;
+            background: #e9ecef;
+            border-radius: 10px;
+            margin: 20px 0;
+            height: 16px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4b6cb7, #3a5ca5);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .instructions {
+            background: #e9f7fe;
+            border-left: 4px solid #4b6cb7;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .instructions h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .instructions ul {
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
             }
 
-            button,
-            input[type="text"] {
-                font-size: 1rem;
-                padding: 12px 16px;
+            h1 {
+                font-size: 2rem;
             }
+
+            button {
+                min-width: 100%;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+        }
+
+        .voice-flag {
+            display: inline-block;
+            width: 24px;
+            height: 16px;
+            margin-right: 10px;
+            vertical-align: middle;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 2px;
+            background: linear-gradient(to bottom, #b22234 40%, white 40%, white 60%, #b22234 60%);
         }
     </style>
 </head>
 
 <body>
-    <h1>Luyện Tập Chép Chính Tả Tiếng Anh</h1>
-    <div class="word-container" aria-live="polite" aria-atomic="true">
-        <button id="play-button" aria-label="Nghe từ">Nghe từ</button>
-        <input type="text" id="user-input" placeholder="Gõ lại từ bạn nghe thấy…" aria-describedby="word-instruction"
-            aria-required="true" autocomplete="off" />
-        <button id="check-button" aria-label="Kiểm tra chính tả">Kiểm tra</button>
-        <div id="result" class="result" role="alert" aria-live="assertive"></div>
-        <button id="next-button" aria-label="Từ tiếp theo">Từ tiếp theo</button>
-    </div>
-    <div class="footer">
-        <p>Số từ sai: <span id="incorrect-count">0</span> / <span id="total-count">0</span></p>
+    <div class="container">
+        <header>
+            <h1>Luyện Tập Chép Chính Tả Tiếng Anh</h1>
+            <p class="subtitle">Với giọng đọc Oxford Anh Mỹ chính thống</p>
+        </header>
+
+        <div class="university-badges">
+            <div class="badge">
+                <div class="badge-icon oxford">O</div>
+                <div class="badge-label">Oxford English (US)</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="play-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+                </svg>
+                <span class="voice-flag"></span> Nghe từ
+            </button>
+        </div>
+
+        <div class="input-group">
+            <label for="user-input">Gõ lại từ bạn nghe thấy:</label>
+            <input type="text" id="user-input" placeholder="Nhập từ tiếng Anh tại đây..." autocomplete="off" />
+        </div>
+
+        <div class="controls">
+            <button id="check-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                Kiểm tra
+            </button>
+            <button id="next-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+                Từ tiếp theo
+            </button>
+        </div>
+
+        <div id="result" class="result empty">Kết quả sẽ hiển thị ở đây</div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-value" id="current-index">1</div>
+                <div class="stat-label">Từ hiện tại</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="correct-count">0</div>
+                <div class="stat-label">Từ đúng</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="incorrect-count">0</div>
+                <div class="stat-label">Từ sai</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="total-count">50</div>
+                <div class="stat-label">Tổng số từ</div>
+            </div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar" style="width: 2%"></div>
+        </div>
+
+        <div class="instructions">
+            <h3>Hướng dẫn sử dụng:</h3>
+            <ul>
+                <li>Nhấn "Nghe từ" để nghe phát âm từ vựng với giọng Oxford Anh Mỹ</li>
+                <li>Gõ lại từ bạn nghe được vào ô nhập liệu</li>
+                <li>Nhấn "Kiểm tra" để xem kết quả</li>
+                <li>Nhấn "Từ tiếp theo" để chuyển sang từ mới</li>
+                <li>Thống kê tiến độ sẽ được cập nhật tự động</li>
+            </ul>
+        </div>
     </div>
 
+    <footer>
+        <p>© 2023 Luyện Tập Chép Chính Tả Tiếng Anh | Giọng đọc Oxford Anh Mỹ</p>
+    </footer>
+
     <script>
-        // Danh sách từ luyện tập
+        // Danh sách từ vựng chất lượng Oxford
         const words = [
             "a", "abandon", "ability", "able", "about", "above", "abroad", "absolute", "absolutely", "academic", "accept", "acceptable", "access", "accident", "accommodation", "accompany", "according to", "account", "accurate", "accuse", "achieve", "achievement", "acknowledge", "acquire", "across", "act", "action", "active", "activity", "actor", "actress", "actual", "actually", "ad", "adapt", "add", "addition", "additional", "address", "administration", "admire", "admit", "adopt", "adult", "advance", "advanced", "advantage", "adventure", "advertise", "advertisement", "advertising", "advice", "advise", "affair", "affect", "afford", "afraid", "after", "afternoon", "afterwards", "again", "against", "age", "aged", "agency", "agenda", "agent", "aggressive", "ago", "agree", "agreement", "ah", "ahead", "aid", "aim", "air", "aircraft", "airline", "airport", "alarm", "album", "alcohol", "alcoholic", "alive", "all", "all right", "allow", "almost", "alone", "along", "already", "also", "alter", "alternative", "although", "always", "amazed", "amazing", "ambition", "ambitious", "among", "amount", "analyze", "analysis", "ancient", "and", "anger", "angle", "angry", "animal", "ankle", "anniversary", "announce", "announcement", "annoy", "annoying", "annual", "another", "answer", "anxious", "any", "anymore", "anybody", "anyone", "anything", "anyway", "anywhere", "apart", "apartment", "apologize", "app", "apparent", "apparently", "appeal", "appear", "appearance", "apple", "application", "apply", "appointment", "appreciate", "approach", "appropriate", "approval", "approve", "approximately", "april", "architect", "architecture", "area", "argue", "argument", "arise", "arm", "armed", "arms", "army", "around", "arrange", "arrangement", "arrest", "arrival", "arrive", "art", "article", "artificial", "artist", "artistic", "as", "ashamed", "ask", "asleep", "aspect", "assess", "assessment", "assignment", "assist", "assistant", "associate", "associated", "association", "assume", "at", "athlete", "atmosphere", "attach", "attack", "attempt", "attend", "attention", "attitude", "attract", "atraction", "attractive", "audience", "august", "aunt", "author", "authority", "autumn", "available", "average", "avoid", "award", "aware", "away", "awful", "baby", "back", "background", "backwards", "bacteria", "bad", "badly", "bag", "bake", "balance", "ball", "ban", "banana", "band", "bank", "bar", "barrier", "base", "baseball", "based", "basic", "basically", "basis", "basketball", "bath", "bathroom", "battery", "battle", "be", "beach", "bean", "bear", "beat", "beautiful", "beauty", "because", "become", "bed", "bedroom", "bee", "beef", "beer", "before", "beg", "begin", "beginning", "behave", "behaviour", "behind", "being", "belif", "believe", "bell", "belong", "below", "belt", "bend", "benefit", "bent", "best", "bet", "better", "between", "beyond", "bicycle", "big", "bike", "bill", "billion", "bin", "biology", "bird", "birth", "birthday", "biscuit", "bit", "bite", "bitter", "black", "blame", "blank", "blind", "block", "blog", "blonde", "blood", "blow", "blue", "board", "boat", "body", "boil", "bomb", "bond", "bone", "book", "boot", "border", "bored", "boring", "born", "borrow", "boss", "both", "bother", "bottle", "bottom", "bowl", "box", "boy", "boyfriend", "brain", "branch", "brand", "brave", "bread", "break", "breakfast", "breast", "breath", "breathe", "breathing", "bride", "bridge", "brief", "bright", "brilliant", "bring", "broad", "broadcast", "broken", "brother", "brown", "brush", "bubble", "budget", "build", "building", "bullet", "bunch", "burn", "bury", "bus", "bush", "business", "businessman", "busy", "but", "butter", "button", "buy", "by", "bye", "cable", "cafe", "cake", "calculate", "call", "calm", "camera", "camp", "campaign", "camping", "campus", "cancel", "cancer", "candidate", "cannot", "cap", "capable", "capacity", "capital", "captain", "capture", "car", "card", "care", "career", "careful", "carefully", "careless", "carpet", "carrot", "carry", "cartoon", "case", "cash", "cast", "castle", "cat", "catch", "category", "cause", "cd", "ceiling", "celebrate", "celebration", "celebrity", "cell", "cent", "central", "centre", "century", "ceremony", "certain", "certainly", "chain", "chair", "chairman", "challenge", "champion", "chance", "change", "channel", "chapter", "character", "characteristic", "charge", "charity", "chart", "chat", "cheap", "cheat", "check", "cheerful", "cheese", "chef", "chemical", "chemistry", "chest", "chicken", "chief", "child", "childhood", "chip", "chocolate", "choice", "choose", "church", "cigarette", "cinema", "circle", "circumstance", "cite", "citizen", "city", "civil", "claim", "class", "classic", "classical", "classroom", "clause", "clean", "clear", "clearly", "clever", "click", "client", "climate", "climb", "clock", "closed", "closely", "cloth", "clothes", "clothing", "cloud", "club", "clue", "coach", "coal", "coast", "coat", "code", "coffee", "coin", "cold", "collapse", "colleague", "collect", "collection", "college", "color", "colored", "column", "combination", "combine", "come", "comedy", "comfort", "comfortable", "command", "comment", "commercial", "commission", "commit", "commitment", "committee", "common", "commonly", "communicate", "communication", "community", "company", "compare", "comparison", "compete", "competition", "competitive", "competitor", "complain", "complaint", "complete", "completely", "complex", "complicated", "component", "computer", "concentrate", "concentration", "concept", "concern", "concerned", "concert", "conclude", "conclusion", "condition", "conduct", "conference", "confidence", "confident", "confirm", "conflict", "confuse", "confused", "confusing", "connect", "connected", "connection", "conscious", "consequence", "conservative", "consider", "consideration", "consist", "consistent", "constant", "constantly", "construct", "construction", "consume", "consumer", "contact", "contain", "container", "contemporary", "contest", "context", "continent", "continue", "continuous", "contract", "contrast", "contribute", "contribution", "control", "convenient", "conversation", "convert", "convince", "convinced", "cook", "cooker", "cooking", "cool", "copy", "core", "corner", "corporate", "correct", "correctly", "cost", "costume", "cottage", "cotton", "could", "council", "count"
         ];
 
         let currentWordIndex = 0;
+        let correctCount = 0;
         let incorrectCount = 0;
+        let isSpeaking = false;
 
-        const playButton = document.getElementById('play-button');
-        const checkButton = document.getElementById('check-button');
-        const nextButton = document.getElementById('next-button');
-        const userInput = document.getElementById('user-input');
-        const resultDiv = document.getElementById('result');
-        const incorrectCountSpan = document.getElementById('incorrect-count');
-        const totalCountSpan = document.getElementById('total-count');
+        // Tạo âm thanh giọng Oxford Anh Mỹ
+        function createOxfordVoice(word) {
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.95;
+            utterance.pitch = 1.0;
+            utterance.volume = 1;
 
-        totalCountSpan.textContent = words.length;
+            // Cố gắng tìm giọng Anh Mỹ chất lượng
+            const voices = speechSynthesis.getVoices();
+            const usVoices = voices.filter(v => v.lang === 'en-US' || v.lang.startsWith('en-US'));
 
-        // Hàm phát âm từ bằng Web Speech API với giọng anh Mỹ
+            if (usVoices.length > 0) {
+                // Ưu tiên giọng nam cho Oxford
+                const maleVoice = usVoices.find(v => v.name.includes('Male') || v.name.includes('Alex') || v.name.includes('Daniel'));
+                utterance.voice = maleVoice || usVoices[0];
+            }
+
+            return utterance;
+        }
+
+        // Hàm phát âm từ
         function playAudio() {
             const word = words[currentWordIndex];
-            if (!('speechSynthesis' in window)) {
-                alert('Trình duyệt của bạn không hỗ trợ chức năng nói tự động.');
-                return;
-            }
-            window.speechSynthesis.cancel(); // Hủy phát trước nếu đang phát
-            const utter = new SpeechSynthesisUtterance(word);
-            // Chọn giọng tiếng Anh Mỹ (ưu tiên)
-            const voices = window.speechSynthesis.getVoices();
-            const usVoice = voices.find(v => (v.lang === 'en-US' || v.lang.startsWith('en-US')) && v.localService)
-                || voices.find(v => v.lang === 'en-US')
-                || voices[0];
-            if (usVoice) {
-                utter.voice = usVoice;
-            }
-            utter.rate = 0.9; // tốc độ nói vừa phải
-            window.speechSynthesis.speak(utter);
+
+            // Dừng bất kỳ phát âm nào đang diễn ra
+            window.speechSynthesis.cancel();
+
+            let utterance = createOxfordVoice(word);
+
+            utterance.onend = function () {
+                isSpeaking = false;
+            };
+
+            window.speechSynthesis.speak(utterance);
+            isSpeaking = true;
         }
 
+        // Hàm kiểm tra chính tả
         function checkSpelling() {
-            const input = userInput.value.trim().toLowerCase();
+            const input = document.getElementById('user-input').value.trim().toLowerCase();
             const correctWord = words[currentWordIndex].toLowerCase();
+            const resultDiv = document.getElementById('result');
 
             if (input === "") {
-                resultDiv.textContent = "Vui lòng nhập từ.";
+                resultDiv.textContent = "Vui lòng nhập từ bạn nghe được.";
                 resultDiv.className = "result incorrect";
                 return;
             }
+
             if (input === correctWord) {
-                resultDiv.textContent = "Chính xác! Bạn có thể sang từ tiếp theo.";
+                resultDiv.innerHTML = `✅ Chính xác! <strong>"${words[currentWordIndex]}"</strong> là từ đúng.`;
                 resultDiv.className = "result correct";
-                nextButton.focus();
+                correctCount++;
+                document.getElementById('correct-count').textContent = correctCount;
             } else {
-                resultDiv.textContent = `Sai! Từ đúng là: "${words[currentWordIndex]}"`;
+                resultDiv.innerHTML = `❌ Sai rồi! Từ đúng là: <strong>"${words[currentWordIndex]}"</strong>. Bạn nhập: "${input}"`;
                 resultDiv.className = "result incorrect";
                 incorrectCount++;
-                incorrectCountSpan.textContent = incorrectCount;
+                document.getElementById('incorrect-count').textContent = incorrectCount;
             }
         }
 
+        // Hàm chuyển sang từ tiếp theo
         function nextWord() {
             currentWordIndex++;
+
             if (currentWordIndex >= words.length) {
-                alert(`Hoàn thành bài tập! Số từ sai: ${incorrectCount} trên tổng số ${words.length}`);
+                const accuracy = Math.round((correctCount / words.length) * 100);
+                alert(`🎉 Chúc mừng! Bạn đã hoàn thành bài tập!\nĐộ chính xác: ${accuracy}%\nSố từ đúng: ${correctCount}/${words.length}`);
                 currentWordIndex = 0;
+                correctCount = 0;
                 incorrectCount = 0;
-                incorrectCountSpan.textContent = incorrectCount;
+                document.getElementById('correct-count').textContent = correctCount;
+                document.getElementById('incorrect-count').textContent = incorrectCount;
             }
-            userInput.value = "";
-            resultDiv.textContent = "";
-            userInput.focus();
+
+            document.getElementById('user-input').value = "";
+            document.getElementById('result').textContent = "Kết quả sẽ hiển thị ở đây";
+            document.getElementById('result').className = "result empty";
+            document.getElementById('current-index').textContent = currentWordIndex + 1;
+            document.getElementById('user-input').focus();
+
+            // Cập nhật thanh tiến trình
+            const progress = ((currentWordIndex) / words.length) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
         }
 
-        playButton.addEventListener("click", () => {
-            playAudio();
-        });
+        // Khởi tạo sự kiện khi trang được tải
+        window.addEventListener('load', function () {
+            // Thiết lập tổng số từ
+            document.getElementById('total-count').textContent = words.length;
 
-        checkButton.addEventListener("click", () => {
-            checkSpelling();
-        });
+            // Gán sự kiện cho các nút
+            document.getElementById('play-button').addEventListener('click', playAudio);
+            document.getElementById('check-button').addEventListener('click', checkSpelling);
+            document.getElementById('next-button').addEventListener('click', nextWord);
 
-        nextButton.addEventListener("click", () => {
-            nextWord();
-        });
+            // Cho phép nhấn Enter để kiểm tra
+            document.getElementById('user-input').addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    checkSpelling();
+                }
+            });
 
-        // Enter thao tác kiểm tra khi nhấn enter ở ô input
-        userInput.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") {
-                e.preventDefault();
-                checkSpelling();
+            // Tải giọng nói
+            if (window.speechSynthesis) {
+                window.speechSynthesis.getVoices();
             }
-        });
 
-        // Tự động load giọng cho Web Speech API (để lấy voices)
-        window.speechSynthesis.onvoiceschanged = () => { };
-
-        // Tự động focus ô nhập khi load trang
-        window.addEventListener("load", () => {
-            userInput.focus();
+            // Tự động focus vào ô nhập liệu
+            document.getElementById('user-input').focus();
         });
     </script>
 </body>
