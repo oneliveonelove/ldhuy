@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luyện Tập Chép Chính Tả Tiếng Anh với Giọng Oxford</title>
+    <title>Luyện Tập Chép Chính Tả Tiếng Anh với Google TTS Miễn Phí</title>
     <style>
         * {
             margin: 0;
@@ -101,8 +101,8 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
-        .oxford {
-            background: linear-gradient(135deg, #002147, #1a3a6d);
+        .google {
+            background: linear-gradient(135deg, #4285F4, #34A853);
             color: #fff;
         }
 
@@ -148,7 +148,7 @@
         }
 
         #play-button {
-            background: linear-gradient(135deg, #4b6cb7, #3a5ca5);
+            background: linear-gradient(135deg, #4285F4, #34A853);
             min-width: 250px;
         }
 
@@ -157,7 +157,7 @@
         }
 
         #next-button {
-            background: linear-gradient(135deg, #ffc107, #e0a800);
+            background: linear-gradient(135deg, #FBBC05, #EA8600);
             color: #333;
         }
 
@@ -257,14 +257,14 @@
 
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, #4b6cb7, #3a5ca5);
+            background: linear-gradient(90deg, #4285F4, #34A853);
             border-radius: 10px;
             transition: width 0.5s ease;
         }
 
         .instructions {
             background: #e9f7fe;
-            border-left: 4px solid #4b6cb7;
+            border-left: 4px solid #4285F4;
             padding: 15px;
             border-radius: 0 8px 8px 0;
             margin: 20px 0;
@@ -318,6 +318,51 @@
             border-radius: 2px;
             background: linear-gradient(to bottom, #b22234 40%, white 40%, white 60%, #b22234 60%);
         }
+
+        .api-key-container {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .api-key-container input {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 300px;
+            max-width: 100%;
+            margin-top: 10px;
+        }
+
+        .voice-info {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .quality-indicator {
+            display: inline-block;
+            padding: 4px 8px;
+            background: #34A853;
+            color: white;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+        
+        .free-tier-info {
+            background: #e8f5e9;
+            border-left: 4px solid #34A853;
+            padding: 12px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 
@@ -325,14 +370,31 @@
     <div class="container">
         <header>
             <h1>Luyện Tập Chép Chính Tả Tiếng Anh</h1>
-            <p class="subtitle">Với giọng đọc Oxford Anh Mỹ chính thống</p>
+            <p class="subtitle">Sử dụng giọng đọc miễn phí của Google TTS</p>
         </header>
 
         <div class="university-badges">
             <div class="badge">
-                <div class="badge-icon oxford">O</div>
-                <div class="badge-label">Oxford English (US)</div>
+                <div class="badge-icon google">G</div>
+                <div class="badge-label">Google TTS API</div>
             </div>
+        </div>
+
+        <div class="voice-info">
+            Đang sử dụng giọng: <strong>en-US-Standard-C</strong> 
+            <span class="quality-indicator">Miễn phí</span>
+        </div>
+
+        <div class="free-tier-info">
+            <p><strong>Giới hạn miễn phí:</strong> Bạn được sử dụng <strong>1 triệu ký tự/tháng</strong> với giọng Standard mà không mất phí. Giọng Neural và Premium sẽ tính phí.</p>
+        </div>
+
+        <div class="api-key-container">
+            <label for="api-key">API Key (bắt buộc):</label>
+            <input type="password" id="api-key" placeholder="Nhập Google Cloud API Key">
+            <p style="font-size: 0.8rem; margin-top: 8px; color: #666;">
+                * Cần Google Cloud API Key để sử dụng dịch vụ
+            </p>
         </div>
 
         <div class="controls">
@@ -398,69 +460,110 @@
         <div class="instructions">
             <h3>Hướng dẫn sử dụng:</h3>
             <ul>
-                <li>Nhấn "Nghe từ" để nghe phát âm từ vựng với giọng Oxford Anh Mỹ</li>
+                <li>Nhập <strong>Google Cloud API Key</strong> của bạn (bắt buộc)</li>
+                <li>Nhấn "Nghe từ" để nghe phát âm từ vựng với giọng Anh Mỹ chất lượng cao</li>
                 <li>Gõ lại từ bạn nghe được vào ô nhập liệu</li>
                 <li>Nhấn "Kiểm tra" để xem kết quả</li>
                 <li>Nhấn "Từ tiếp theo" để chuyển sang từ mới</li>
                 <li>Thống kê tiến độ sẽ được cập nhật tự động</li>
+                <li>Bạn đang sử dụng giọng <strong>en-US-Standard-C</strong> miễn phí</li>
             </ul>
         </div>
     </div>
 
     <footer>
-        <p>© 2023 Luyện Tập Chép Chính Tả Tiếng Anh | Giọng đọc Oxford Anh Mỹ</p>
+        <p>© 2023 Luyện Tập Chép Chính Tả Tiếng Anh | Sử dụng Google Cloud Text-to-Speech API miễn phí</p>
     </footer>
 
     <script>
         // Danh sách từ vựng chất lượng Oxford
-        const words = ["accompany", "accurate", "ad", "addition", "additional", "admire", "adopt", "affair", "after", "agenda", "aggressive", "ah", "aid", "aim", "alarm", "all right", "ambition", "ambitious", "and", "angle", "angry", "announcement", "announce", "annual", "annoying", "annoy", "anxious", "apparent", "apparently", "appeal", "appearance", "appointment", "approach", "appropriate", "approval", "argue", "argument", "arrest", "arrival", "artistic", "as", "ashamed", "aspect", "assess", "assessment", "assign", "assignment", "assist", "assistant", "assume", "athlete", "attach", "attitude", "attract", "attraction", "authority", "aunt", "aware", "backwards", "bacteria", "basis", "battle", "bean", "beat", "belief", "bend", "bent", "bill", "blind", "approximately"];
+        const words = [
+            "a", "abandon", "ability", "able", "about", "above", "abroad", "absolute", "absolutely", "academic", "accept", "acceptable", "access", "accident", "accommodation", "accompany", "according to", "account", "accurate", "accuse", "achieve", "achievement", "acknowledge", "acquire", "across", "act", "action", "active", "activity", "actor", "actress", "actual", "actually", "ad", "adapt", "add", "addition", "additional", "address", "administration", "admire", "admit", "adopt", "adult", "advance", "advanced", "advantage", "adventure", "advertise", "advertisement", "advertising", "advice", "advise", "affair", "affect", "afford", "afraid", "after", "afternoon", "afterwards", "again", "against", "age", "aged", "agency", "agenda", "agent", "aggressive", "ago", "agree", "agreement", "ah", "ahead", "aid", "aim", "air", "aircraft", "airline", "airport", "alarm", "album", "alcohol", "alcoholic", "alive", "all", "all right", "allow", "almost", "alone", "along", "already", "also", "alter", "alternative", "although", "always", "amazed", "amazing", "ambition", "ambitious", "among", "amount", "analyze", "analysis", "ancient", "and", "anger", "angle", "angry", "animal", "ankle", "anniversary", "announce", "announcement", "annoy", "annoying", "annual", "another", "answer", "anxious", "any", "anymore", "anybody", "anyone", "anything", "anyway", "anywhere", "apart", "apartment", "apologize", "app", "apparent", "apparently", "appeal", "appear", "appearance", "apple", "application", "apply", "appointment", "appreciate", "approach", "appropriate", "approval", "approve", "approximately", "april", "architect", "architecture", "area", "argue", "argument", "arise", "arm", "armed", "arms", "army", "around", "arrange", "arrangement", "arrest", "arrival", "arrive", "art", "article", "artificial", "artist", "artistic", "as", "ashamed", "ask", "asleep", "aspect", "assess", "assessment", "assignment", "assist", "assistant", "associate", "associated", "association", "assume", "at", "athlete", "atmosphere", "attach", "attack", "attempt", "attend", "attention", "attitude", "attract", "atraction", "attractive", "audience", "august", "aunt", "author", "authority", "autumn", "available", "average", "avoid", "award", "aware", "away", "awful", "baby", "back", "background", "backwards", "bacteria", "bad", "badly", "bag", "bake", "balance", "ball", "ban", "banana", "band", "bank", "bar", "barrier", "base", "baseball", "based", "basic", "basically", "basis", "basketball", "bath", "bathroom", "battery", "battle", "be", "beach", "bean", "bear", "beat", "beautiful", "beauty", "because", "become", "bed", "bedroom", "bee", "beef", "beer", "before", "beg", "begin", "beginning", "behave", "behaviour", "behind", "being", "belif", "believe bosons", "bell", "belong", "below", "belt", "bend", "benefit", "bent", "best", "bet", "better", "between", "beyond", "bicycle", "big", "bike", "bill", "billion", "bin", "biology", "bird", "birth", "birthday", "biscuit", "bit", "bite", "bitter", "black", "blame", "blank", "blind", "block", "blog", "blonde", "blood", "blow", "blue", "board", "boat", "body", "boil", "bomb", "bond", "bone", "book", "boot", "border", "bored", "boring", "born", "borrow", "boss", "both", "bother", "bottle", "bottom", "bowl", "box", "boy", "boyfriend", "brain", "branch", "brand", "brave", "bread", "break", "breakfast", "breast", "breath", "breathe", "breathing", "bride", "bridge", "brief", "bright", "brilliant", "bring", "broad", "broadcast", "broken", "brother", "brown", "brush", "bubble", "budget", "build", "building", "bullet", "bunch", "burn", "bury", "bus", "bush", "business", "businessman", "busy", "but", "butter", "button", "buy", "by", "bye", "cable", "cafe", "cake", "calculate", "call", "calm", "camera", "camp", "campaign", "camping", "campus", "cancel", "cancer", "candidate", "cannot", "cap", "capable", "capacity", "capital", "captain", "capture", "car", "card", "care", "career", "careful", "carefully", "careless", "carpet", "carrot", "carry", "cartoon", "case", "cash", "cast", "castle", "cat", "catch", "category", "cause", "cd", "ceiling", "celebrate", "celebration", "celebrity", "cell", "cent", "central", "centre", "century", "ceremony", "certain", "certainly", "chain", "chair", "chairman", "challenge", "champion", "chance", "change", "channel", "chapter", "character", "characteristic", "charge", "charity", "chart", "chat", "cheap", "cheat", "check", "cheerful", "cheese", "chef", "chemical", "chemistry", "chest", "chicken", "chief", "child", "childhood", "chip", "chocolate", "choice", "choose", "church", "cigarette", "cinema", "circle", "circumstance", "cite", "citizen", "city", "civil", "claim", "class", "classic", "classical", "classroom", "clause", "clean", "clear", "clearly", "clever", "click", "client", "climate", "climb", "clock", "closed", "closely", "cloth", "clothes", "clothing", "cloud", "club", "clue", "coach", "coal", "coast", "coat", "code", "coffee", "coin", "cold", "collapse", "colleague", "collect", "collection", "college", "color", "colored", "column", "combination", "combine", "come", "comedy", "comfort", "comfortable", "command", "comment", "commercial", "commission", "commit", "commitment", "committee", "common", "commonly", "communicate", "communication", "community", "company", "compare", "comparison", "compete", "competition", "competitive", "competitor", "complain", "complaint", "complete", "completely", "complex", "complicated", "component", "computer", "concentrate", "concentration", "concept", "concern", "concerned", "concert", "conclude", "conclusion", "condition", "conduct", "conference", "confidence", "confident", "confirm", "conflict", "confuse", "confused", "confusing", "connect", "connected", "connection", "conscious", "consequence", "conservative", "consider", "consideration", "consist", "consistent", "constant", "constantly", "construct", "construction", "consume", "consumer", "contact", "contain", "container", "contemporary", "contest", "context", "continent", "continue", "continuous", "contract", "contrast", "contribute", "contribution", "control", "convenient", "conversation", "convert", "convince", "convinced", "cook", "cooker", "cooking", "cool", "copy", "core", "corner", "corporate", "correct", "correctly", "cost", "costume", "cottage", "cotton", "could", "council", "count"
+        ];
 
         let currentWordIndex = 0;
         let correctCount = 0;
         let incorrectCount = 0;
         let isSpeaking = false;
+        let audioPlayer = new Audio();
 
-        // Tạo âm thanh giọng Oxford Anh Mỹ (nữ)
-        function createOxfordVoice(word) {
-            const utterance = new SpeechSynthesisUtterance(word);
-            utterance.lang = 'en-US';
-            utterance.rate = 0.7;
-            utterance.pitch = 1.0;
-            utterance.volume = 1;
-
-            // Cố gắng tìm giọng Anh Mỹ chất lượng
-            const voices = speechSynthesis.getVoices();
-            const usVoices = voices.filter(v => v.lang === 'en-US' || v.lang.startsWith('en-US'));
-
-            if (usVoices.length > 0) {
-                // Ưu tiên giọng nữ cho Oxford
-                const femaleVoice = usVoices.find(v =>
-                    v.name.includes('Female') ||
-                    v.name.includes('Samantha') ||
-                    v.name.includes('Victoria') ||
-                    v.name.includes('Google US English')
-                );
-                utterance.voice = femaleVoice || usVoices[0];
+        // Hàm phát âm từ sử dụng Google TTS API với giọng miễn phí
+        async function playGoogleTTS(word) {
+            const apiKey = document.getElementById('AIzaSyCCV_Hsc3ZSKr2XkqNWEYhn5vDUgekf_jo').value;
+            
+            if (!apiKey) {
+                alert('Vui lòng nhập Google Cloud API Key để sử dụng tính năng này');
+                return;
             }
 
-            return utterance;
+            try {
+                // Tạo yêu cầu tới Google Cloud TTS API
+                const response = await fetch(
+                    `https://texttospeech.googleapis.com/v1/text:synthesize?key=${apiKey}`, 
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            input: { text: word },
+                            voice: {
+                                languageCode: 'en-US',
+                                name: 'en-US-Standard-C' // GIỌNG MIỄN PHÍ
+                            },
+                            audioConfig: {
+                                audioEncoding: 'MP3',
+                                speakingRate: 0.8, // Tốc độ chậm hơn một chút
+                                pitch: 0 // Cao độ bình thường
+                            }
+                        })
+                    }
+                );
+
+                const data = await response.json();
+                
+                if (data.error) {
+                    throw new Error(data.error.message);
+                }
+
+                // Tạo URL âm thanh từ dữ liệu base64
+                const audioContent = data.audioContent;
+                const audioBlob = base64ToBlob(audioContent, 'audio/mp3');
+                const audioUrl = URL.createObjectURL(audioBlob);
+                
+                // Phát âm thanh
+                audioPlayer.src = audioUrl;
+                audioPlayer.play();
+                
+                // Cập nhật trạng thái
+                isSpeaking = true;
+                
+            } catch (error) {
+                console.error('Lỗi khi gọi Google TTS API:', error);
+                alert(`Lỗi: ${error.message}. Vui lòng kiểm tra API Key và kết nối mạng.`);
+            }
         }
 
-        // Hàm phát âm từ
-        function playAudio() {
-            const word = words[currentWordIndex];
+        // Hàm chuyển base64 sang Blob
+        function base64ToBlob(base64Data, contentType) {
+            contentType = contentType || '';
+            const sliceSize = 1024;
+            const byteCharacters = atob(base64Data);
+            const bytesLength = byteCharacters.length;
+            const slicesCount = Math.ceil(bytesLength / sliceSize);
+            const byteArrays = new Array(slicesCount);
 
-            // Dừng bất kỳ phát âm nào đang diễn ra
-            window.speechSynthesis.cancel();
+            for (let sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
+                const begin = sliceIndex * sliceSize;
+                const end = Math.min(begin + sliceSize, bytesLength);
 
-            let utterance = createOxfordVoice(word);
-
-            utterance.onend = function () {
-                isSpeaking = false;
-            };
-
-            window.speechSynthesis.speak(utterance);
-            isSpeaking = true;
+                const bytes = new Array(end - begin);
+                for (let offset = begin, i = 0; offset < end; ++i, ++offset) {
+                    bytes[i] = byteCharacters.charCodeAt(offset);
+                }
+                byteArrays[sliceIndex] = new Uint8Array(bytes);
+            }
+            return new Blob(byteArrays, { type: contentType });
         }
 
         // Hàm kiểm tra chính tả
@@ -519,7 +622,10 @@
             document.getElementById('total-count').textContent = words.length;
 
             // Gán sự kiện cho các nút
-            document.getElementById('play-button').addEventListener('click', playAudio);
+            document.getElementById('play-button').addEventListener('click', function() {
+                playGoogleTTS(words[currentWordIndex]);
+            });
+            
             document.getElementById('check-button').addEventListener('click', checkSpelling);
             document.getElementById('next-button').addEventListener('click', nextWord);
 
@@ -529,11 +635,6 @@
                     checkSpelling();
                 }
             });
-
-            // Tải giọng nói
-            if (window.speechSynthesis) {
-                window.speechSynthesis.getVoices();
-            }
 
             // Tự động focus vào ô nhập liệu
             document.getElementById('user-input').focus();
