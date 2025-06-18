@@ -489,7 +489,8 @@
 
         // Hàm phát âm từ sử dụng Google TTS API với giọng miễn phí
         async function playGoogleTTS(word) {
-            const apiKey = document.getElementById('AIzaSyCCV_Hsc3ZSKr2XkqNWEYhn5vDUgekf_jo').value;
+            // LẤY API KEY TỪ Ô NHẬP - DÒNG NÀY LÀ QUAN TRỌNG
+            const apiKey = document.getElementById('api-key').value;
             
             if (!apiKey) {
                 alert('Vui lòng nhập Google Cloud API Key để sử dụng tính năng này');
@@ -643,4 +644,3 @@
 </body>
 
 </html>
-
